@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Legends - Your Personal Academic RPG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Game Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="pixel-loader"></div>
+            <h2>Loading Study Legends...</h2>
+            <p>Preparing your academic adventure</p>
+        </div>
+    </div>
+
+    <!-- Main Game Container -->
+    <div class="game-container" id="gameContainer">
+        <!-- Game Header -->
+        <header class="game-header">
+            <div class="player-info">
+                <div class="avatar">
+                    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=StudyLegend" alt="Avatar">
+                    <div class="level-badge">Lvl <span id="playerLevel">1</span></div>
+                </div>
+                <div class="player-stats">
+                    <h1 id="playerName">Study Legend</h1>
+                    <div class="stat-bars">
+                        <div class="stat-bar">
+                            <span class="stat-label">XP</span>
+                            <div class="bar-container">
+                                <div class="bar-fill xp-bar" id="xpBar"></div>
+                                <span class="bar-text" id="xpText">0/100</span>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <span class="stat-label">Gold</span>
+                            <div class="bar-container">
+                                <div class="bar-fill gold-bar" id="goldBar"></div>
+                                <span class="bar-text" id="goldText">0/1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <div class="control-item" id="inventoryBtn">
+                    <i class="fas fa-backpack"></i>
+                    <span>Inventory</span>
+                </div>
+                <div class="control-item" id="skillsBtn">
+                    <i class="fas fa-brain"></i>
+                    <span>Skills</span>
+                </div>
+                <div class="control-item" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Game Navigation -->
+        <nav class="game-nav">
+            <button class="nav-btn active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-btn" data-section="missions">
+                <i class="fas fa-flag"></i>
+                <span>Missions</span>
+            </button>
+            <button class="nav-btn" data-section="quests">
+                <i class="fas fa-scroll"></i>
+                <span>Quests</span>
+            </button>
+            <button class="nav-btn" data-section="events">
+                <i class="fas fa-calendar-star"></i>
+                <span>Events</span>
+            </button>
+            <button class="nav-btn" data-section="arena">
+                <i class="fas fa-swords"></i>
+                <span>Arena</span>
+            </button>
+            <button class="nav-btn" data-section="shop">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </button>
+        </nav>
+
+        <!-- Main Game Content -->
+        <main class="game-content">
+            <!-- Dashboard Section -->
+            <section class="game-section active" id="dashboard">
+                <div class="dashboard-grid">
+                    <!-- Daily Progress -->
+                    <div class="dashboard-card">
+                        <h2><i class="fas fa-sun"></i> Today's Progress</h2>
+                        <div class="progress-circle" data-progress="65">
+                            <svg width="120" height="120">
+                                <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                                <circle class="progress-fill" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <span class="percent">65%</span>
+                                <span class="label">Daily Goal</span>
+                            </div>
+                        </div>
+                        <div class="daily-stats">
+                            <div class="stat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>3/5 Missions</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>4.2 hrs</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-fire"></i>
+                                <span>7 Day Streak</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Quest -->
+                    <div class="dashboard-card">
+                        <h2><i class="fas fa-quest"></i> Active Quest</h2>
+                        <div class="active-quest">
+                            <div class="quest-icon epic">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="quest-details">
+                                <h3>Semester Champion</h3>
+                                <p>Complete all courses with A+</p>
+                                <div class="quest-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 40%"></div>
+                                    </div>
+                                    <span>2/5 Courses</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quest-rewards">
+                            <div class="reward">
+                                <i class="fas fa-star"></i>
+                                <span>+5000 XP</span>
+                            </div>
+                            <div class="reward">
+                                <i class="fas fa-coins"></i>
+                                <span>+2000 Gold</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="dashboard-card">
+                        <h2><i class="fas fa-hourglass-half"></i> Upcoming Events</h2>
+                        <div class="events-list">
+                            <div class="event-item urgent">
+                                <div class="event-time">
+                                    <span class="date">Tomorrow</span>
+                                    <span class="time">10:00 AM</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Midterm Exam</h4>
+                                    <p>Digital Logic Design - Final Boss Battle</p>
+                                </div>
+                                <button class="btn-small prepare-btn">
+                                    <i class="fas fa-swords"></i> Prepare
+                                </button>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-time">
+                                    <span class="date">3 Days</span>
+                                    <span class="time">All Day</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Code Marathon</h4>
+                                    <p>24-hour Hackathon Event</p>
+                                </div>
+                                <button class="btn-small join-btn">
+                                    <i class="fas fa-gamepad"></i> Join
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Progress -->
+                    <div class="dashboard-card">
+                        <h2><i class="fas fa-chart-network"></i> Skill Tree</h2>
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon coding">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Coding</h4>
+                                    <div class="skill-level">
+                                        <div class="level-dots">
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <span class="level-text">Lvl 3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon math">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Mathematics</h4>
+                                    <div class="skill-level">
+                                        <div class="level-dots">
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <span class="level-text">Lvl 2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon focus">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Focus</h4>
+                                    <div class="skill-level">
+                                        <div class="level-dots">
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot active"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <span class="level-text">Lvl 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Missions Section -->
+            <section class="game-section" id="missions">
+                <div class="section-header">
+                    <h2><i class="fas fa-flag"></i> Daily Missions</h2>
+                    <div class="mission-stats">
+                        <span class="streak">🔥 7 Day Streak</span>
+                        <span class="completed">3/5 Completed</span>
+                    </div>
+                </div>
+
+                <div class="missions-grid">
+                    <!-- Mission cards will be loaded dynamically -->
+                </div>
+
+                <div class="section-footer">
+                    <button class="btn-primary" id="claimAllMissions">
+                        <i class="fas fa-gift"></i> Claim All Rewards
+                    </button>
+                </div>
+            </section>
+
+            <!-- Quests Section -->
+            <section class="game-section" id="quests">
+                <div class="section-header">
+                    <h2><i class="fas fa-scroll"></i> Growth Quests</h2>
+                    <div class="quest-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                        <button class="filter-btn" data-filter="epic">Epic</button>
+                    </div>
+                </div>
+
+                <div class="quests-container">
+                    <!-- Quest cards will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section class="game-section" id="events">
+                <div class="events-container">
+                    <!-- Special events will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Arena Section -->
+            <section class="game-section" id="arena">
+                <div class="arena-container">
+                    <!-- Battle arena content -->
+                </div>
+            </section>
+
+            <!-- Shop Section -->
+            <section class="game-section" id="shop">
+                <div class="shop-container">
+                    <!-- Shop items will be loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Game Footer -->
+        <footer class="game-footer">
+            <div class="footer-stats">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span>Total Study Time: <strong id="totalTime">142 hrs</strong></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-trophy"></i>
+                    <span>Achievements: <strong id="achievementCount">15</strong></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Current Streak: <strong id="currentStreak">7 days</strong></span>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <button class="action-btn" id="quickStudy">
+                    <i class="fas fa-play"></i> Quick Study
+                </button>
+                <button class="action-btn" id="addMission">
+                    <i class="fas fa-plus"></i> Add Mission
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Game Modals -->
+    <div class="modal" id="inventoryModal">
+        <div class="modal-content">
+            <!-- Inventory content -->
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Sound System -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-game-level-music-689.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="completeSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="levelUpSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-trumpet-2018.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
